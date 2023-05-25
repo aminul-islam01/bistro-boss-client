@@ -26,31 +26,31 @@ const Menu = () => {
             {/* offered categories menu */}
             <div className='mt-20 mb-10'>
                 <SectionTitle subHeading="don't miss" heading="Today's Offers"></SectionTitle>
-                <MenuCategory items={offered}></MenuCategory>
+                <MenuCategory items={offered} category="drinks"></MenuCategory>
             </div>
 
             {/* dessert categories */}
             <div className='mb-10'>
                 <Cover img={dessertBg} coverTitle="Desserts"></Cover>
-                <MenuCategory items={dessert}></MenuCategory>
+                <MenuCategory items={dessert} category="desserts"></MenuCategory>
             </div>
 
             {/* pizza categories */}
             <div className='mb-10'>
                 <Cover img={pizzaBg} coverTitle="Pizza"></Cover>
-                <MenuCategory items={pizza}></MenuCategory>
+                <MenuCategory items={pizza} category="pizza"></MenuCategory>
             </div>
 
             {/* salad categories */}
             <div className='mb-10'>
-                <Cover img={saladBg} coverTitle="Salads"></Cover>
-                <MenuCategory items={salad}></MenuCategory>
+                <Cover img={saladBg} coverTitle="Salad"></Cover>
+                <MenuCategory items={salad} category="salad"></MenuCategory>
             </div>
 
             {/* soup categories */}
             <div className='mb-10'>
                 <Cover img={soupBg} coverTitle="Soups"></Cover>
-                <MenuCategory items={soup}></MenuCategory>
+                <MenuCategory items={soup} category="soup"></MenuCategory>
             </div>
         </div>
     );
