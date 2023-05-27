@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-
+import { useContext, useEffect, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { AuthContext } from '../../Provider/AuthProviders';
+import { Link } from 'react-router-dom';
+import image from '../../assets/others/authentication2.png'
 
 const Login = () => {
     const [captchaCode, setCaptchaCode] = useState();
-    const [disable, setDisable] = useState(false);
 
+    const {loginUser} = useContext(AuthContext);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -22,10 +24,14 @@ const Login = () => {
         console.log(email, password)
 
         if (validateCaptcha(captchaCode) == true) {
-            setDisable(true);
+           loginUser(email, password)
+           .then(result => {
+             const user = result.user;
+             console.log(user)
+           })
         }
         else {
-            setDisable(false)
+            alert('captcha not match')
         }
 
     }
@@ -36,13 +42,13 @@ const Login = () => {
 
     return (
         <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content lg:flex-row flex-col">
+            <div className="hero-content md:flex-row flex-col">
                 <div className="text-center md:w-1/2 lg:text-left">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                   <img src={image} alt="" />
                 </div>
                 <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">
+                    <h2 className='font-bold text-2xl text-center'>Login</h2>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -65,8 +71,9 @@ const Login = () => {
                             <input onChange={() => setCaptchaCode(event.target.value)} type="text" name="captcha" placeholder="Type the text above" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn btn-primary" disabled={disable}>Login</button>
+                            <button type="submit" className="btn bg-amber-600 hover:bg-amber-700">Login</button>
                         </div>
+                    <p className='text-center text-amber-600'>New here? <Link to="/sign-up" className='font-bold'>Create a New Account</Link></p>
                     </form>
                 </div>
             </div>
