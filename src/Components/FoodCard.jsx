@@ -2,17 +2,20 @@ import Swal from "sweetalert2";
 import useCart from "../UseMenu/UseCart";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProviders";
+import { useNavigate } from "react-router-dom";
 
 
 const FoodCard = ({ item }) => {
     const {user} = useContext(AuthContext);
     const { image, name, recipe, price } = item;
     const [, refetch] = useCart();
+    const navigate = useNavigate();
 
     const handleAddToCart = (item) => {
         const { _id, image, name, price } = item;
-        const cartItem = { foodId: _id, image, name, price, email: user.email };
-        fetch('http://localhost:5000/carts', {
+        const cartItem = { foodId: _id, image, name, price, email: user?.email };
+        {user?
+            fetch('http://localhost:5000/carts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -30,10 +33,11 @@ const FoodCard = ({ item }) => {
                 })
                 
             })
+        : navigate('/login')}
     }
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-full bg-base-100 shadow-xl">
             <figure><img src={image} /></figure>
             <p className="bg-black text-white py-3 px-5 font-semibold absolute top-5 right-5">${price}</p>
             <div className="card-body">
