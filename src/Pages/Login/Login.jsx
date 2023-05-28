@@ -1,37 +1,51 @@
 import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Provider/AuthProviders';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import image from '../../assets/others/authentication2.png'
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const { loginUser } = useContext(AuthContext);
     const [captchaCode, setCaptchaCode] = useState();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const {loginUser} = useContext(AuthContext);
+    const from = location.state?.from?.pathname || "/";
+
 
     useEffect(() => {
         loadCaptchaEnginge(6);
 
     }, [])
 
-    
+
 
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password)
-
+       
         if (validateCaptcha(captchaCode) == true) {
-           loginUser(email, password)
-           .then(result => {
-             const user = result.user;
-             console.log(user)
-           })
+            loginUser(email, password)
+                .then(() => {
+                    navigate(from, { replace: true });
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User login success full',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
         }
         else {
-            alert('captcha not match')
+            Swal.fire({
+                icon: 'error',
+                title: 'Captcha not match',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
 
     }
@@ -44,11 +58,11 @@ const Login = () => {
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content md:flex-row flex-col">
                 <div className="text-center md:w-1/2 lg:text-left">
-                   <img src={image} alt="" />
+                    <img src={image} alt="" />
                 </div>
                 <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">
-                    <h2 className='font-bold text-2xl text-center'>Login</h2>
+                        <h2 className='font-bold text-2xl text-center'>Login</h2>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -73,7 +87,7 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <button type="submit" className="btn bg-amber-600 hover:bg-amber-700">Login</button>
                         </div>
-                    <p className='text-center text-amber-600'>New here? <Link to="/sign-up" className='font-bold'>Create a New Account</Link></p>
+                        <p className='text-center text-amber-600'>New here? <Link to="/sign-up" className='font-bold'>Create a New Account</Link></p>
                     </form>
                 </div>
             </div>
