@@ -1,14 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null)
 
 const auth = getAuth(app);
 
-const AuthProviders = ({children}) => {
+const AuthProviders = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -18,7 +19,11 @@ const AuthProviders = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    const logoutUser = () =>{
+    const handleGoogleSignIn = () => {
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    const logoutUser = () => {
         signOut(auth)
     }
 
@@ -26,11 +31,11 @@ const AuthProviders = ({children}) => {
         updateProfile(registerUser, {
             displayName: name,
             photoURL: image
-          }).then(() => {
-            
-          }).catch(() => {
-            
-          });
+        }).then(() => {
+
+        }).catch(() => {
+
+        });
     }
 
     useEffect(() => {
@@ -38,7 +43,7 @@ const AuthProviders = ({children}) => {
             setUser(currentUser);
             setLoading(false);
         })
-        return () => {unsubscribe()};
+        return () => { unsubscribe() };
     }, [])
 
     const AuthInfo = {
@@ -48,11 +53,12 @@ const AuthProviders = ({children}) => {
         loginUser,
         logoutUser,
         updateUser,
+        handleGoogleSignIn
     }
 
     return (
         <AuthContext.Provider value={AuthInfo}>
-          {children}  
+            {children}
         </AuthContext.Provider>
     );
 };

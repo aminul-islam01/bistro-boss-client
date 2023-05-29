@@ -9,7 +9,7 @@ const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const {register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         const name = data.name;
@@ -22,14 +22,25 @@ const SignUp = () => {
             .then(result => {
                 const registerUser = result.user;
                 updateUser(registerUser, name, image);
-                navigate('/')
-                Swal.fire({
-                    icon: 'success',
-                    title: 'User signUp success fully',
-                    showConfirmButton: false,
-                    timer: 1500
+                const user = { name, email }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
                 })
-                reset()
+                .then(res => res.json())
+                .then(() => {
+                    navigate('/')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User signUp success fully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    reset()
+                })
             })
     }
 
@@ -47,21 +58,21 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" {...register('name', {required: true})} placeholder="name" className="input input-bordered" />
+                            <input type="text" {...register('name', { required: true })} placeholder="name" className="input input-bordered" />
                             {errors.name && <p className="text-red-700">name is required</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Image</span>
                             </label>
-                            <input type="text" {...register('image', {required: true})} placeholder="image url" className="input input-bordered" />
+                            <input type="text" {...register('image', { required: true })} placeholder="image url" className="input input-bordered" />
                             {errors.image && <p className="text-red-700">image url is required</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" {...register('email', {required:true})} placeholder="email" className="input input-bordered" />
+                            <input type="email" {...register('email', { required: true })} placeholder="email" className="input input-bordered" />
                             {errors.email && <p className="text-red-700">email is required</p>}
                         </div>
                         <div className="form-control">

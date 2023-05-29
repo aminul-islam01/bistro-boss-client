@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../Laout/Main";
+import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import Menu from "../Pages/Menu/Menu/Menu";
 import Order from "../Pages/Order/Order/Order";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
-import Dashboard from "../Laout/Dashboard";
+import Dashboard from "../Layout/Dashboard";
 import MyCart from "../Pages/Dashboard/Mycart/MyCart";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 
 export const router = createBrowserRouter([
@@ -45,8 +46,8 @@ export const router = createBrowserRouter([
           element: <MyCart></MyCart>
         },
         {
-          path: "home",
-          element: 'home'
+          path: "all-users",
+          element: <AllUsers></AllUsers>
         },
         {
           path: "reservation",
