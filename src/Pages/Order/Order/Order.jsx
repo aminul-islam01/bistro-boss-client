@@ -21,11 +21,11 @@ const Order = () => {
     const pizza = menu.filter(item => item.category === "pizza");
     const drinks = menu.filter(item => item.category === "drinks");
     return (
-        <div>
+        <div className="mb-20">
             <Helmet><title>Bistro Boss | Order Food</title></Helmet>
             <Cover img={orderBg} coverTitle="Order Food"></Cover>
             <Tabs className="text-center" selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
-                <TabList>
+                <TabList className="mb-10">
                     <Tab>SALAD</Tab>
                     <Tab>PIZZA</Tab>
                     <Tab>SOUPS</Tab>

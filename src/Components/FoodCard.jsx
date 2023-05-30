@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import useCart from "../UseMenu/UseCart";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProviders";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const FoodCard = ({ item }) => {
@@ -10,6 +10,7 @@ const FoodCard = ({ item }) => {
     const { image, name, recipe, price } = item;
     const [, refetch] = useCart();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleAddToCart = (item) => {
         const { _id, image, name, price } = item;
@@ -33,7 +34,7 @@ const FoodCard = ({ item }) => {
                 })
                 
             })
-        : navigate('/login')}
+        : navigate('/login', {state: {from: location}})}
     }
 
     return (
