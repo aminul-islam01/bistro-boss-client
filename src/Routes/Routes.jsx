@@ -8,6 +8,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Layout/Dashboard";
 import MyCart from "../Pages/Dashboard/Mycart/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import Contact from "../Pages/Contact/Contact";
 
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
         {
           path: 'order/:category',
           element: <Order></Order>
+        },
+        {
+          path: 'contact',
+          element: <Contact></Contact>
         },
         {
           path: 'login',

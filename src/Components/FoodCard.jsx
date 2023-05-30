@@ -38,14 +38,14 @@ const FoodCard = ({ item }) => {
     }
 
     return (
-        <div className="card w-full bg-base-100 shadow-xl">
-            <figure><img src={image} /></figure>
+        <div className="card w-full bg-gray-100 shadow-lg">
+            <figure ><img className="w-full" src={image} /></figure>
             <p className="bg-black text-white py-3 px-5 font-semibold absolute top-5 right-5">${price}</p>
             <div className="card-body">
                 <h2 className=" text-3xl font-bold text-center">{name}</h2>
                 <p className="text-left">{recipe}</p>
                 <div className="card-actions justify-center">
-                    <button onClick={() => handleAddToCart(item)} className="btn btn-primary">Add To Card</button>
+                    <button onClick={() => handleAddToCart(item)} className="btn bg-gray-200 text-yellow-600 border-0 border-b-4 border-yellow-600 mt-5">Add To Card</button>
                 </div>
             </div>
         </div>
