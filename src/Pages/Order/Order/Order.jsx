@@ -2,7 +2,7 @@ import Cover from "../../Shared/Cover/Cover";
 import orderBg from '../../../assets/order/banner2.jpg'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import useMenu from "../../../UseMenu/UseMenu";
+import useMenu from "../../../hooks/UseMenu";
 import OrderTab from "../OrderTab/OrderTab";
 import { useParams } from "react-router-dom";
 import { useState } from "react";

@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import useCart from "../UseMenu/UseCart";
+import useCart from "../hooks/UseCart";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProviders";
 import { useLocation, useNavigate } from "react-router-dom";

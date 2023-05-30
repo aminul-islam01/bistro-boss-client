@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import useCart from "../../../UseMenu/UseCart";
+import useCart from "../../../hooks/UseCart";
 import { FaTrashAlt } from 'react-icons/fa';
 import SectionTitle from "../../../Components/SectionTitle";
 
