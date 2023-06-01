@@ -1,52 +1,19 @@
-import Swal from "sweetalert2";
-import useCart from "../../../hooks/UseCart";
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../Components/SectionTitle";
+import useMenu from "../../../hooks/UseMenu";
 
 
-const MyCart = () => {
-    const [cart, refetch] = useCart();
-    const totalPrice = cart.reduce((sum, item) => item.price + sum, 0);
-
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`http://localhost:5000/carts/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(() => {
-                        refetch()
-                        Swal.fire(
-                            'Deleted!',
-                            'Your item has been deleted.',
-                            'success'
-                            
-                        )
-                    })
-            }
-        })
+const ManageItem = () => {
+    const {menu} = useMenu();
+    const handleDelete = () => {
 
     }
-
     return (
         <div className="p-10">
-            <SectionTitle subHeading="My Cart" heading="Wanna Add More">
+            <SectionTitle subHeading="Hurry Up!" heading="Manage All Items">
             </SectionTitle>
             <div className="bg-white p-10">
-                <div className="uppercase font-semibold flex justify-between mb-10">
-                    <h3 className="text-3xl">Total Orders: {cart.length}</h3>
-                    <h3 className="text-3xl">Total Price: ${totalPrice}</h3>
-                    <button className="btn bg-[#D1A054]">Pay</button>
-                </div>
+                <h3 className="font-semibold text-3xl mb-10">TOTAL ITEMS: {menu.length}</h3> 
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
                         {/* head */}
@@ -56,11 +23,12 @@ const MyCart = () => {
                                 <th>ITEM</th>
                                 <th>ITEM NAME</th>
                                 <th>PRICE</th>
-                                <th className="text-end">ACTION</th>
+                                <th>ACTION</th>
+                                <th>ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {cart.map((item, index) =>
+                            {menu.map((item, index) =>
                                 <tr key={item._id}>
                                     <th>{index + 1}</th>
                                     <td>
@@ -72,7 +40,12 @@ const MyCart = () => {
                                     </td>
                                     <td>{item.name}</td>
                                     <td>${item.price}</td>
-                                    <th className="text-end">
+                                    <th>
+                                        <button onClick={() => handleDelete(item._id)} className="btn btn-ghost  bg-red-700 text-xl text-white">
+                                            <FaTrashAlt></FaTrashAlt>
+                                        </button>
+                                    </th>
+                                    <th>
                                         <button onClick={() => handleDelete(item._id)} className="btn btn-ghost  bg-red-700 text-xl text-white">
                                             <FaTrashAlt></FaTrashAlt>
                                         </button>
@@ -87,4 +60,4 @@ const MyCart = () => {
     );
 };
 
-export default MyCart;
+export default ManageItem;

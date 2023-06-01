@@ -11,6 +11,7 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import Contact from "../Pages/Contact/Contact";
 import PrivateRoute from "./PrivateRoute";
 import AddItem from "../Pages/Dashboard/AddItem/AddItem";
+import ManageItem from "../Pages/Dashboard/ManageItem/ManageItem";
 
 
 export const router = createBrowserRouter([
@@ -61,8 +62,8 @@ export const router = createBrowserRouter([
           element: <AddItem></AddItem>
         },
         {
-          path: "payment-history",
-          element: 'payment-history'
+          path: "manage-item",
+          element: <ManageItem></ManageItem>
         }
       ]
     }
