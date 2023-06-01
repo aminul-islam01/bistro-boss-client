@@ -14,7 +14,7 @@ const Navbar = () => {
         <li><Link to="/contact">Contact Us</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order Food</Link></li>
-        {user ? <li><Link onClick={logoutUser} to="/">Sign Out</Link></li>
+        {user ? <li><Link to="/" onClick={logoutUser} >Sign Out</Link></li>
             : <li><Link to="/login">Login</Link></li>
         }
     </>

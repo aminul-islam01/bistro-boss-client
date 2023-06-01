@@ -10,6 +10,7 @@ import MyCart from "../Pages/Dashboard/Mycart/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import Contact from "../Pages/Contact/Contact";
 import PrivateRoute from "./PrivateRoute";
+import AddItem from "../Pages/Dashboard/AddItem/AddItem";
 
 
 export const router = createBrowserRouter([
@@ -49,15 +50,15 @@ export const router = createBrowserRouter([
       children: [
         {
           path: "my-cart",
-          element: <MyCart></MyCart>
+          element: <PrivateRoute><MyCart></MyCart></PrivateRoute>
         },
         {
           path: "all-users",
           element: <AllUsers></AllUsers>
         },
         {
-          path: "reservation",
-          element: 'reservation'
+          path: "add-item",
+          element: <AddItem></AddItem>
         },
         {
           path: "payment-history",
