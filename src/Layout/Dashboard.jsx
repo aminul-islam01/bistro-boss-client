@@ -37,7 +37,7 @@ const Dashboard = () => {
                     <li><Link to="/"><FaHome></FaHome>HOME</Link></li>
                     <li><Link to="/menu"><FaBars></FaBars>MENU</Link></li>
                     <li><Link to="/order/salad"><FaShoppingBag></FaShoppingBag>SHOP</Link></li>
-                    <li><Link to="/"><FaEnvelope></FaEnvelope>Contact</Link></li>
+                    <li><Link to="/contact"><FaEnvelope></FaEnvelope>Contact</Link></li>
                 </ul>
 
             </div>
