@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useCart from "../../../hooks/UseCart";
 import { FaTrashAlt } from 'react-icons/fa';
 import SectionTitle from "../../../Components/SectionTitle";
+import { Link } from "react-router-dom";
 
 
 const MyCart = () => {
@@ -29,7 +30,7 @@ const MyCart = () => {
                             'Deleted!',
                             'Your item has been deleted.',
                             'success'
-                            
+
                         )
                     })
             }
@@ -45,7 +46,9 @@ const MyCart = () => {
                 <div className="uppercase font-semibold flex justify-between mb-10">
                     <h3 className="text-3xl">Total Orders: {cart.length}</h3>
                     <h3 className="text-3xl">Total Price: ${totalPrice}</h3>
-                    <button className="btn bg-[#D1A054]">Pay</button>
+                    <Link to="/dashboard/payment">
+                        <button className="btn bg-[#D1A054]">Pay</button>
+                    </Link>
                 </div>
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
