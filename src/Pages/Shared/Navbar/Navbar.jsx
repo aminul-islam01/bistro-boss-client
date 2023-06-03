@@ -3,15 +3,18 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProviders";
 import useCart from "../../../hooks/UseCart";
 import { FaShoppingCart } from 'react-icons/fa';
+import useAdmin from "../../../hooks/UseAdmin";
 
 const Navbar = () => {
     const { user, logoutUser } = useContext(AuthContext);
+    const [isAdmin] = useAdmin();
     const [cart] = useCart();
     const price = cart.reduce((sum, item) => item.price + sum, 0);
 
     const navItems = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
+        <li><Link to={isAdmin? "/dashboard/admin-home":"dashboard/user-home"}>Dashboard</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order Food</Link></li>
         {user ? <li><Link to="/" onClick={logoutUser} >Sign Out</Link></li>

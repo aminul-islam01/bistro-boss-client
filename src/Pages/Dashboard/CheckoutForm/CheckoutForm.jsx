@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import UseAxios from "../../../hooks/UseAxios";
 import UseAuth from "../../../hooks/UseAuth";
+import Swal from "sweetalert2";
+import './CheckoutForm.css'
 
 
-const CheckoutForm = ( {price} ) => {
+const CheckoutForm = ( {cart, price} ) => {
     const stripe = useStripe();
     const elements = useElements();
     const {user} = UseAuth();
@@ -13,6 +15,7 @@ const CheckoutForm = ( {price} ) => {
     const [cardError, setCardError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [processing, setProcessing] = useState(false);
+    const [transactionId, setTransactionId] = useState("");
 
     useEffect(() => {
         if(price > 0) {
@@ -49,6 +52,7 @@ const CheckoutForm = ( {price} ) => {
         });
 
         if (error) {
+            setTransactionId("");
             setCardError(error.message);
         } else {
             setCardError("");
@@ -72,6 +76,33 @@ const CheckoutForm = ( {price} ) => {
           }
           console.log(paymentIntent);
           setProcessing(false);
+
+          if(paymentIntent.status === 'succeeded') {
+            setTransactionId(paymentIntent.id)
+            const payment = {
+                email: user?.email, 
+                transactionId: paymentIntent.id,
+                price,
+                data: new Date(),
+                quantity: cart.length,
+                cartItems: cart.map(item => item._id),
+                menuItems: cart.map(item => item.foodId),
+                status: "service pending",
+                itemsName: cart.map(item => item.name)
+            }
+            axiosSecure.post('/payments', payment)
+            .then(res => {
+                // console.log(res.data)
+                if(res.data.insertResult.insertedId){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Payment success full',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+          }
     };
 
     return (
@@ -98,6 +129,7 @@ const CheckoutForm = ( {price} ) => {
                 </button>
             </form>
             {cardError && <p className="text-red-600">{cardError}</p>}
+            {transactionId && <p className="text-green-600">Transaction complete with transaction Id {transactionId}</p>}
         </>
     );
 };

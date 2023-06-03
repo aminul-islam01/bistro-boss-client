@@ -19,15 +19,15 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 bg-[#D1A054] text-base-content">
                     {isAdmin ? <>
-                        <li><NavLink to="/dashboard/home"><FaHome></FaHome>ADMIN HOME</NavLink></li>
+                        <li><NavLink to="/dashboard/admin-home"><FaHome></FaHome>ADMIN HOME</NavLink></li>
                         <li><NavLink to="/dashboard/add-item"><FaUtensils></FaUtensils>ADD ITEMS</NavLink></li>
                         <li><NavLink to="/dashboard/manage-item"><FaListUl></FaListUl>MANAGE ITEMS</NavLink></li>
-                        <li><NavLink to="/dashboard/my-cart"><FaBook></FaBook>MANAGE BOOKINGS</NavLink></li>
+                        <li><NavLink to="/dashboard/"><FaBook></FaBook>MANAGE BOOKINGS</NavLink></li>
                         <li><NavLink to="/dashboard/all-users"><FaUsers></FaUsers>ALL USERS</NavLink></li>
                     </>
                     :isAdminLoading? ""
                         : <>
-                            <li><NavLink to="/dashboard/home"><FaHome></FaHome>USER HOME</NavLink></li>
+                            <li><NavLink to="/dashboard/user-home"><FaHome></FaHome>USER HOME</NavLink></li>
                             <li><NavLink to="/dashboard/reservation"><FaCalendarAlt></FaCalendarAlt>RESERVATION</NavLink></li>
                             <li><NavLink to="/dashboard/payment-history"><FaWallet></FaWallet>PAYMENT HISTORY</NavLink></li>
                             <li><NavLink to="/dashboard/my-cart"><FaShoppingCart></FaShoppingCart>MY CART</NavLink></li>
