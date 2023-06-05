@@ -10,6 +10,7 @@ const Navbar = () => {
     const [isAdmin] = useAdmin();
     const [cart] = useCart();
     const price = cart.reduce((sum, item) => item.price + sum, 0);
+    const totalPrice = price.toFixed(2);
 
     const navItems = <>
         <li><Link to="/">Home</Link></li>
@@ -51,7 +52,7 @@ const Navbar = () => {
                     <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow text-black">
                         <div className="card-body">
                             <span className="font-bold text-lg">{cart?.length || 0} Items</span>
-                            <span className="text-info">Subtotal: ${price}</span>
+                            <span className="text-info">Subtotal: ${totalPrice}</span>
                             <div className="card-actions">
                                 <Link to="/dashboard/my-cart">
                                     <button className="btn btn-primary btn-block">View cart</button>
